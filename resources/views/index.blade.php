@@ -7,7 +7,15 @@ Dashboard @parent
 @section('header_styles')
 <!-- page vendors -->
 <link href="{{ asset('css/pages.css')}}" rel="stylesheet">
-
+  <?php 
+          $trees=App\Models\Tree::class;
+          $schools=\App\Models\School::class;
+          $assigned=App\Models\AssignTrees::class;
+            
+          
+       ?>
+      
+       
 
 <!--end of page vendors -->
 @stop
@@ -27,28 +35,28 @@ Dashboard @parent
         <div class="col-md-6 col-xl-3 col-12 mb-20">
             <div class="  bg-white dashboard-col pl-15 pb-15 pt-15">
                 <i class="im im-icon-Add-Cart im-icon-set float-right bg-primary"></i>
-                <h3>35K</h3>
-                <p>Beneficiary Schools</p>
+                <h3>{{$trees::count()}}</h3>
+                <p>Tree Species</p>
                 <div class="progress meter mr-15">
                     <div id="progress-primary"
                         class=" progress-bar bg-primary progress-bar-striped progress-bar-animated" role="progressbar"
                         style="width: 1%" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
-                <p class="mb-0 mt-3 "><span>Gained: 655</span> <span class="float-right pr-15">Lost: 56</span></p>
+                <p class="mb-0 mt-3 "><span>Fresh: {{$trees::where('status','New')->count()}}</span> <span class="float-right pr-15">Damaged: {{$trees::where('status','Damaged')->count()}}</span></p>
             </div>
         </div>
 
         <div class="col-md-6 col-xl-3 col-12  mb-20">
             <div class="bg-white dashboard-col pl-15 pb-15 pt-15">
                 <i class="im im-icon-Eye-Scan im-icon-set float-right bg-success"></i>
-                <h3>10K</h3>
-                <p>Page Views</p>
+                <h3>{{$schools::count()}}</h3>
+                <p>Registred Beneficiary Schools</p>
                 <div class="progress mr-15">
                     <div id="progress-success"
                         class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar"
                         style="width: 1%" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
-                <p class="mb-0 mt-3 "><span>Unique Pageviews: </span> <span class="float-right pr-15">4.7K</span>
+                <p class="mb-0 mt-3 "><span>School Served </span> <span class="float-right pr-15">{{$assigned::count()}}</span>
                 </p>
             </div>
         </div>
@@ -56,14 +64,14 @@ Dashboard @parent
         <div class="col-md-6 col-xl-3 col-12  mb-20">
             <div class="bg-white dashboard-col pl-15 pb-15 pt-15">
                 <i class="im im-icon-Love-User im-icon-set float-right bg-info"></i>
-                <h3>23K</h3>
-                <p>Number of Fans</p>
+                <h3>{{$assigned::count()}}</h3>
+                <p>Distributed Tree Transactions</p>
                 <div class="progress mr-15">
                     <div id="progress-info" class="progress-bar bg-info progress-bar-striped progress-bar-animated"
                         role="progressbar" style="width: 1%" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100">
                     </div>
                 </div>
-                <p class="mb-0 mt-3 "><span>Gained: 655</span> <span class="float-right pr-15">Lost: 56</span></p>
+                <p class="mb-0 mt-3 "><span>Total number distributed : </span> <span class="float-right pr-15">{{$assigned::sum('number_to_assign')}}</span>
             </div>
         </div>
 
@@ -71,14 +79,14 @@ Dashboard @parent
         <div class="col-md-6 col-xl-3 col-12  mb-20">
             <div class="bg-white dashboard-col pl-15 pb-15 pt-15">
                 <i class="im im-icon-Checked-User im-icon-set float-right bg-danger"></i>
-                <h3>400</h3>
-                <p>Total Actions</p>
+                <h3>{{$assigned::sum('number_to_assign')}}</h3>
+                <p>Total Distribution Across Schools</p>
                 <div class="progress mr-15">
                     <div id="progress-danger" class="progress-bar bg-danger progress-bar-striped progress-bar-animated"
                         role="progressbar" style="width: 1%" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100">
                     </div>
                 </div>
-                <p class="mb-0 mt-3 "><span>To Prev. Period: 655</span> <span class="float-right pr-15">+72%</span>
+                <p class="mb-0 mt-3 "><span>Distribution Progress : </span> <span class="float-right pr-15">{{$assigned::sum('number_to_assign')*100/25000}}%</span>
                 </p>
             </div>
         </div>
@@ -112,52 +120,19 @@ Dashboard @parent
                             <table class="table">
                                 <tr>
                                     <th>Names</th>
-                                    <th>Daily Sales</th>
-                                    <th>Monthly Sales</th>
-                                    <th>Yearly Sales</th>
+                                    <th>School Location</th>
+                                    <th>Contact</th>
+                                    <th>Attn</th>
                                 </tr>
+
+                                @foreach($schools::get() as $school)
                                 <tr>
-                                    <td>Jan</td>
-                                    <td>6</td>
-                                    <td>180</td>
-                                    <td>1500</td>
+                                    <td>{{$school->school_name}}</td>
+                                    <td>{{$school->school_adress}}</td>
+                                    <td>{{$school->school_contacts}}</td>
+                                    <td>{{$school->contact_person}}</td>
                                 </tr>
-                                <tr>
-                                    <td>Feb</td>
-                                    <td>13</td>
-                                    <td>390</td>
-                                    <td>4680</td>
-                                </tr>
-                                <tr>
-                                    <td>Mar</td>
-                                    <td>13</td>
-                                    <td>390</td>
-                                    <td>4680</td>
-                                </tr>
-                                <tr>
-                                    <td>Mar</td>
-                                    <td>13</td>
-                                    <td>390</td>
-                                    <td>4680</td>
-                                </tr>
-                                  <tr>
-                                    <td>Mar</td>
-                                    <td>13</td>
-                                    <td>390</td>
-                                    <td>4680</td>
-                                </tr>
-                                <tr>
-                                    <td>Mar</td>
-                                    <td>13</td>
-                                    <td>390</td>
-                                    <td>4680</td>
-                                </tr>
-                               <tr>
-                                    <td>Mar</td>
-                                    <td>13</td>
-                                    <td>390</td>
-                                    <td>4680</td>
-                                </tr>
+                               @endforeach
                             </table>
                         </div>
 

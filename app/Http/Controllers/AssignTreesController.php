@@ -36,6 +36,12 @@ class AssignTreesController extends AppBaseController
         return view('assign_trees.create');
     }
 
+    public function report(){
+
+        return view('distributed_report');
+
+    }
+
     /**
      * Store a newly created AssignTrees in storage.
      *

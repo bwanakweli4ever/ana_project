@@ -24,3 +24,9 @@
     </a>
 </li>
 
+<li class="{!! (Request::is('report*') ? 'active' : '' ) !!}">
+    <a href="/report">
+        <span class="mm-text ">Cumilative Report</span>
+        <span class="menu-icon"><i class="im im-icon-Bar-Chart2"></i></span>
+    </a>
+</li>
