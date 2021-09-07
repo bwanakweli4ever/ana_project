@@ -98,7 +98,7 @@ Dashboard @parent
         <div class="col-md-12 col-lg-7 mt-20 col-12 ">
             <div class="dashboard-col">
 
-                <h5 class="card-header">Sales Analysis</h5>
+                <h5 class="card-header">Distribution Analysis</h5>
                 <hr>
                 <div class="row">
                     <div class="col-12">
@@ -152,7 +152,64 @@ Dashboard @parent
 @section('footer_scripts')
 <!--   page level js ----------->
 <script language="javascript" type="text/javascript" src="{{ asset('vendors/chartjs/js/Chart.js') }}"></script>
-<script src="{{ asset('js/pages/dashboard.js') }}"></script>
+<!-- <script src="{{ asset('js/pages/dashboard.js') }}"></script> -->
+
+<script>
+    $(document).ready(function () {
+        $("#progress-primary").animate({ width: '45%' }, 'slow', 'linear');
+        $("#progress-info").animate({ width: '45%' }, 'slow', 'linear');
+        $("#progress-success").animate({ width: '45%' }, 'slow', 'linear');
+        $("#progress-danger").animate({ width: '45%' }, 'slow', 'linear');
+    });
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+
+    $.ajax({
+        url: "{{ route('dash.stats') }}",
+        method: 'GET',
+        contentType: "application/json",
+        dataType: 'json',
+        success: function ({ labels, data }) {
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels,
+                    datasets: [{
+                        data,
+                        backgroundColor: [
+                            'rgba(166, 172, 244, 0.2)',
+                            'rgba(166, 172, 244, 0.2)',
+                            'rgba(166, 172, 244, 0.2)',
+                            'rgba(166, 172, 244, 0.2)',
+                            'rgba(166, 172, 244, 0.2)',
+                            'rgba(166, 172, 244, 0.2)',
+                            'rgba(166, 172, 244, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(97, 110, 244, 1)',
+                            'rgba(97, 110, 244, 1)',
+                            'rgba(97, 110, 244, 1)',
+                            'rgba(97, 110, 244, 1)',
+                            'rgba(97, 110, 244, 1)',
+                            'rgba(97, 110, 244, 1)',
+                            'rgba(97, 110, 244, 1)'
+                        ],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        },
+    })
+</script>
 
 <!-- end of page level js -->
 @stop

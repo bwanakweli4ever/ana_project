@@ -1,8 +1,8 @@
 $(document).ready(function () {
     $(".login_backimg").backstretch([
-        "/img/images/login2.png",
-         "/img/images/login13.jpg",
-         "/img/images/login10.png"
+        "/images/image-1.png",
+         "/images/image-2.jpeg",
+         "/images/image-3.png"
     ], {duration: 3000, fade: 750});
 })
 
